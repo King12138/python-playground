@@ -2,11 +2,12 @@
 
 '''
 Created on 2016-12-01 13:19:59
-
+简单的模块(main)
 @author: zhoujiagen
 '''
 
 import os
+
 
 if __name__ == '__main__':
     import sys
