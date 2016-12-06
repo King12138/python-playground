@@ -1,0 +1,1 @@
+add `#!/usr/bin/env python` in the head line of scripts.
