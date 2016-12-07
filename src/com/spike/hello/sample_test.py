@@ -24,3 +24,8 @@ class SampleTest(unittest.TestCase):
         assert a == 2, 'a should equal 2'
         widget = Widget("The widget")
         assert widget.size() == (50, 50), 'incorrect default size'
+
+
+# 直接运行(使用Python run, 而不是Python unittest)
+if __name__ == '__main__':
+    unittest.main()

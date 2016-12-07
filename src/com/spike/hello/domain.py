@@ -14,3 +14,5 @@ class Widget():
         return (self.width, self.length)
     def resize(self, width, length):
         self.width, self.length = width, length
+    def dispose(self):
+        print "dispose..."
