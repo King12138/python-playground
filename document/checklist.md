@@ -13,11 +13,16 @@
 # 4 工具 - 模块分发等
 ## 模块分发
 
-+ Setuptools
-+ Distutils, Distutil2
-+ Distribute
++ Setuptools - See `dev-resources/setuptools-notes.md` and `setuptools-playground/README.md`
++ Distutils, Distutils2 - Well, they are not recommented.
++ Distribute - TBD
+
+## virtualenv  - TBD
+
+See `dev-resources/virtualenv-notes.md` and `virtualenv-playground`.
 
 > TBD
+
 
 # 5 OpenStack supported frameworks and tools
 
