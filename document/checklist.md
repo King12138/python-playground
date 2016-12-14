@@ -50,7 +50,7 @@ See `dev-resources/virtualenv-notes.md` and `virtualenv-playground`.
 + 国际化oslo.i18n
 + 消息化oslo.messaging
 + 使用插件stevedore
-+ 控制任务执行Taskflow
++ 控制任务执行[TaskFlow](https://wiki.openstack.org/wiki/TaskFlow)
 + 搭建OpenStack项目的cookiecutter
 + 策略抽象oslo.policy
 + root权限封装oslo.rootwrap
@@ -72,5 +72,9 @@ See `dev-resources/virtualenv-notes.md` and `virtualenv-playground`.
 + 计量与监控 - Ceilometer
 + 控制面板 - Horizon
 + 部署 - TripleO
+
+## 7.1 DevStack安装和配置
+
+见`dev-resources/devstack-notes.md`.
 
 > TBD
