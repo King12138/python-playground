@@ -1,8 +1,10 @@
 # 1 数据结构
 
-> TBD
+见`com.spike.datastructure`.
 
 # 2 命令式编程 - 控制结构, 异常处理, BIF等
+
+基本语句示例见`com.spike.imperative.statements`.
 
 > TBD
 
@@ -32,6 +34,8 @@ See `dev-resources/virtualenv-notes.md` and `virtualenv-playground`.
 Python内建的模块: `logging`, `logging.config`, `logging.handlers`, REF [The Python Standard Library](https://docs.python.org/2.7/library/index.html) section 15.7~15.9.
 
 入门教程: [python logging模块使用教程](http://www.jianshu.com/p/feb86c06c4f4)
+
+封装见`com.spike.env.log.py`.
 
 ## 命令行解析Argparse
 
