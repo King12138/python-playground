@@ -29,7 +29,9 @@ See `dev-resources/virtualenv-notes.md` and `virtualenv-playground`.
 
 ## 日志
 
-> TBD
+Python内建的模块: `logging`, `logging.config`, `logging.handlers`, REF [The Python Standard Library](https://docs.python.org/2.7/library/index.html) section 15.7~15.9.
+
+入门教程: [python logging模块使用教程](http://www.jianshu.com/p/feb86c06c4f4)
 
 ## 命令行解析Argparse
 
