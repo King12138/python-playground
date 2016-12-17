@@ -1,3 +1,13 @@
+# 0 Pydoc
+
+PyDoc的构成:
+ 
++ 描述部分
++ 模块(Modules)
++ 类(Classes)
++ 函数(Functions)
++ 数据(Data)
+
 # 1 数据结构
 
 见`com.spike.datastructure`.
@@ -6,7 +16,7 @@
 
 基本语句示例见`com.spike.imperative.statements`.
 
-> TBD
+内建模块中`__builtin__`见PyDoc `__builtin__.html`.
 
 # 3 面向对象编程
 
@@ -26,8 +36,6 @@
 ## virtualenv
 
 See `dev-resources/virtualenv-notes.md` and `virtualenv-playground`.
-
-> TBD
 
 ## 日志
 
