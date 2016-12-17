@@ -63,4 +63,9 @@ Setuptools工具使用记录
 见setuptools-playground/README.md.
 
 
+# 4 包发现和资源访问: pkg_resources模块
+
+> The pkg_resources module distributed with setuptools provides an API for Python libraries to access their resource files, and for extensible applications and frameworks to automatically discover plugins.
+
+术语的解释: [[Distutils] Terminology for distributions, eggs, setuptools, etc.](https://mail.python.org/pipermail/distutils-sig/2005-June/004652.html)
 
