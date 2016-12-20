@@ -18,14 +18,11 @@ PyDoc的构成:
 
 内建模块中`__builtin__`见PyDoc `__builtin__.html`.
 
-
-> TBD function arguments pass and resolve.
+函数参数传递和解析见`com.spike.imperative.functions`.
 
 # 3 面向对象编程
 
 见`com.spike.objectoriented`.
-
-> TBD namespace.
 
 # 4 函数式编程支持
 
