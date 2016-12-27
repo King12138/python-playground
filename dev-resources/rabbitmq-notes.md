@@ -1,5 +1,18 @@
 RabbitMQ基本概念和配置记录
 
+# 0 资源
+
+[RabbitMQ文档](http://www.rabbitmq.com/documentation.html)
+
+## 0.1 [服务端文档](http://www.rabbitmq.com/admin-guide.html)
+
++ 配置服务器
++ 管理和监控: 管理插件和`rabbitmqctl`
++ 集群和HA
++ 操作
++ 开发和问题排解 
+
+
 # 1 [下载和安装](http://www.rabbitmq.com/download.html)
 	
 	# Mac
@@ -32,6 +45,9 @@ RabbitMQ基本概念和配置记录
 	$ ps -ef | grep rabbit
 	  501 14626 14540   0  7:41下午 ttys000    0:07.70 /usr/local/Cellar/erlang/19.2/lib/erlang/erts-8.2/bin/beam.smp -W w -A 64 -P 1048576 -t 5000000 -stbt db -K true -B i -- -root /usr/local/Cellar/erlang/19.2/lib/erlang -progname erl -- -home /Users/xxx -- -pa /usr/local/Cellar/rabbitmq/3.6.4/ebin -noshell -noinput -s rabbit boot -sname rabbit@localhost -boot /usr/local/opt/erlang/lib/erlang/bin/start_clean -kernel inet_default_connect_options [{nodelay,true}] -rabbit tcp_listeners [{"127.0.0.1",5672}] -sasl errlog_type error -sasl sasl_error_logger false -rabbit error_logger {file,"/usr/local/var/log/rabbitmq/rabbit@localhost.log"} -rabbit sasl_error_logger {file,"/usr/local/var/log/rabbitmq/rabbit@localhost-sasl.log"} -rabbit enabled_plugins_file "/usr/local/etc/rabbitmq/enabled_plugins" -rabbit plugins_dir "/usr/local/Cellar/rabbitmq/3.6.4/plugins" -rabbit plugins_expand_dir "/usr/local/var/lib/rabbitmq/mnesia/rabbit@localhost-plugins-expand" -os_mon start_cpu_sup false -os_mon start_disksup false -os_mon start_memsup false -mnesia dir "/usr/local/var/lib/rabbitmq/mnesia/rabbit@localhost" -kernel inet_dist_listen_min 25672 -kernel inet_dist_listen_max 25672
 	
+	# 停止
+	$ rabbitmqctl stop
+	
 	
 管理插件: [Management Plugin](http://www.rabbitmq.com/management.html), 开启后访问`http://localhost:15672/`.
 	
@@ -44,7 +60,9 @@ RabbitMQ基本概念和配置记录
 + [运行时参数](http://www.rabbitmq.com/parameters.html)
 
 
-RABBITMQ_HOME
+环境配置rabbitmq-env.conf: `/usr/local/etc/rabbitmq/rabbitmq-env.conf`.
+
+配置文件rabbitmq.config(标准Erlang配置文件): `/usr/local/etc/rabbitmq/rabbitmq.config`.
 
 	/usr/local/var/log/rabbitmq/rabbit@localhost.log: 
 	
@@ -58,5 +76,8 @@ RABBITMQ_HOME
 	database dir   : /usr/local/var/lib/rabbitmq/mnesia/rabbit@localhost
 	......
 
-环境配置rabbitmq-env.conf
-配置rabbitmq.config
+示例配置见[rabbitmq.config.example](https://github.com/rabbitmq/rabbitmq-server/blob/master/docs/rabbitmq.config.example).
+
+
+
+

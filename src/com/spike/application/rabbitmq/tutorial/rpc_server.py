@@ -33,7 +33,7 @@ class FibonacciRpcServer():
             response = _fib(n)
 
             # 接收到请求时称为生产者
-            # 查找路由键, 同时返回相关性ID
+            # 查找路由键, 同时原样返回相关性ID
             channel.basic_publish(
                 exchange = '',
                 routing_key = properties.reply_to,
