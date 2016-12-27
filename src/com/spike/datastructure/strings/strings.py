@@ -87,7 +87,7 @@ def code_strings():
     """定义字符串的多种方式"""
     print 'A\nB\tC', '.'
     print ord('\n'), '.'
-    
+
     # 跨行的字符串定义
     msg = """
 aaa

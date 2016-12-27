@@ -54,7 +54,7 @@ class SpikeConsoleLogger(SpikeLogger):
         self.logger.addHandler(sh)
 
 # 控制台输出底层logger
-#console_logger = SpikeConsoleLogger().native()
+# console_logger = SpikeConsoleLogger().native()
 
 class SpikeFileLogger(SpikeLogger):
     """文件输出日志"""
@@ -90,4 +90,4 @@ if __name__ == '__main__':
     logger.warn('warn message')
     logger.error('error message')
     logger.critical('critical message')
-    
+

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# 1 other core types 
+# 1 other core types
 # boolean, types, None
 #
 # 2 program unit types
