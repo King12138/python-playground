@@ -28,7 +28,7 @@ SQLAlchemy_Relationship_Base = declarative_base()  # 多个实体, 带关系
 
 def create_schema(engine, base = SQLAlchemy_Base):
     """创建/检查Schema"""
-    logger.info('create schema by with engine[%s], base[%s]' % (engine, base))
+    logger.info('create schema with engine[%s], base[%s]' % (engine, base))
 
     base.metadata.create_all(engine)
 
@@ -40,12 +40,13 @@ def create_session(engine):
     session = Session()  # session实例
     return session
 
-def create_mysql_fulltext_index(base=SQLAlchemy_Base):
+def create_mysql_fulltext_index(engine):
     """
-    TODO: 创建MySQL全文索引
-    REF http://stackoverflow.com/questions/14971619/proper-use-of-mysql-full-text-search-with-sqlalchemy
+    创建MySQL全文索引
+    !WRONG! REF http://stackoverflow.com/questions/14971619/proper-use-of-mysql-full-text-search-with-sqlalchemy
+    原因可能是SQLAlchemy版本之间的变化比较大.
     """
-    connect = base.metadata.bind.connect()
+    connect = engine.connect()
     connect.execute('CREATE FULLTEXT INDEX first_name_fulltext ON EMPLOYEE (FIRST_NAME ASC)')
 
 

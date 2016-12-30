@@ -91,7 +91,7 @@ class SQLAlchemy_Relation_Employee(SQLAlchemy_Relationship_Base):
     sex = Column(CHAR(1), name = 'SEX')
     income = Column(Float, name = 'INCOME')
 
-    dept_id = Column(BigInteger, ForeignKey('DEPARTMENTS.ID'), name = 'DEPT_ID')
+    dept_id = Column(BigInteger, ForeignKey('DEPARTMENTS.ID'), name = 'DEPT_ID') # 外键 
     department = relationship('SQLAlchemy_Relation_Department', back_populates = 'employees')  # 定义关联
 
     def __repr__(self):

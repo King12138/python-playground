@@ -167,8 +167,8 @@ def delete_operation():
 
 if __name__ == '__main__':
     establish_database_connection()
-    # create_schema()
+    create_schema()
     insert_operation()
     query_operation()
     update_operation()
-    # delete_operation()
+    delete_operation()

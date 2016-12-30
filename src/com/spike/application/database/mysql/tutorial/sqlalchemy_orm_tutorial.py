@@ -258,15 +258,13 @@ if __name__ == '__main__':
 
     # 2 建立连接
     engine = SQLAlchemyOrmTutorialSupport.create_engine()
-    logger.info(engine)
 
     # 3 声明映射见SQLAlchemy_Employee
 
     # 4 创建Schema
-# commented for query
     SQLAlchemyOrmTutorialSupport.create_schema(engine, SQLAlchemy_Base)
-
-    SQLAlchemyOrmTutorialSupport.create_mysql_fulltext_index(SQLAlchemy_Base)
+    # 创建全文索引, 只需要执行一次
+    #SQLAlchemyOrmTutorialSupport.create_mysql_fulltext_index(engine)
 
     # 5 创建映射类实例
     employee = new_transient_entity()
@@ -296,7 +294,7 @@ if __name__ == '__main__':
     # 提交会话事务
     session.commit()
     # 查看ID
-    logger.info(employee_.id)
+    logger.info(employee_.id) # 事务提交后才可以查询出新建记录的id
     for e in employees:
         logger.info(e.id)
 
