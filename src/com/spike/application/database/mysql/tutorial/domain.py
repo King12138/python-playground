@@ -52,12 +52,13 @@ def create_schema(engine):
 class SQLAlchemy_Employee(SQLAlchemy_Base):
     __tablename__ = 'EMPLOYEE'
 
-    id = Column(BigInteger, primary_key = True, autoincrement = True)
-    first_name = Column(String(20))
-    last_name = Column(String(20))
-    age = Column(Integer)
-    sex = Column(CHAR(1))
-    income = Column(Float)
+    # name为schema中的名称
+    id = Column(BigInteger, primary_key = True, autoincrement = True, name = 'ID')
+    first_name = Column(String(20), name = 'FIRST_NAME')
+    last_name = Column(String(20), name = 'LAST_NAME')
+    age = Column(Integer, name = 'AGE')
+    sex = Column(CHAR(1), name = 'SEX')
+    income = Column(Float, name = 'INCOME')
 
     def create_schema(self, engine):
         logger.info('create schema by [%s] with engine[%s]' % ('SQLAlchemy_Employee', engine))
