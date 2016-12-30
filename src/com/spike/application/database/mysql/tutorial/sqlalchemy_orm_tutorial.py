@@ -10,29 +10,18 @@ SQLAlchemy ORM教程 - 单个实体
 '''
 import time
 
-import sqlalchemy
 from sqlalchemy.orm.exc import MultipleResultsFound, NoResultFound
-from sqlalchemy.orm.session import sessionmaker
 
 from com.spike.application.database.mysql.tutorial.domain import SQLAlchemy_Employee as Employee
+from com.spike.application.database.mysql.tutorial.sqlalchemy_orm_support import SQLAlchemy_Base
+import com.spike.application.database.mysql.tutorial.sqlalchemy_orm_support as SQLAlchemyOrmTutorialSupport
 from com.spike.env.log import SpikeConsoleLogger
 
 
 logger = SpikeConsoleLogger('SQLAlchemy-ORM-Tutorial').native()
 
 
-
 # 计时参考: http://stackoverflow.com/questions/7370801/measure-time-elapsed-in-python
-
-def show_version():
-    """1 检查版本"""
-    # 1 检查版本
-    logger.info('Framework version is: %s' % sqlalchemy.__version__)
-
-def create_engine():
-    """2 建立连接"""
-    engine = sqlalchemy.create_engine('mysql://root:@localhost/test', echo = True)
-    return engine
 
 def new_transient_entity(first_name = 'Eric', last_name = 'Cartman', age = 10, sex = 'M', income = 10000.0):
     """5 创建映射类实例"""
@@ -45,12 +34,6 @@ def new_transient_entity(first_name = 'Eric', last_name = 'Cartman', age = 10, s
 
     return employee
 
-
-def create_session(engine):
-    """6 创建Session"""
-    Session = sessionmaker(bind = engine)  # 使用session工厂
-    session = Session()  # session实例
-    return session
 
 def _queries(session):
     """
@@ -204,7 +187,7 @@ def _query_returning_list_and_scalar(session):
     logger.info(session.query(Employee).filter(Employee.id == -1).one_or_none())
 
     # scalar(): 调用one(), 成功时返回第一列元素(WRONG!!!)
-    query = session.query(Employee).filter(Employee.id == 12)
+    query = session.query(Employee).filter(Employee.id == 12)  # id=12可能需要修改
     logger.info(query.one())
     logger.info(query.scalar())
 
@@ -254,7 +237,7 @@ def _query_counting(session):
     """统计"""
 
     start = time.time()
-    
+
     print '-' * 200
     count = session.query(Employee).filter(Employee.first_name == 'Eric0').count()
     logger.info(count)
@@ -270,45 +253,52 @@ def _query_counting(session):
     print 'last %s seconds' % (end - start)
 
 if __name__ == '__main__':
-    engine = create_engine()
+    # 1 检查版本
+    SQLAlchemyOrmTutorialSupport.show_version()
+
+    # 2 建立连接
+    engine = SQLAlchemyOrmTutorialSupport.create_engine()
     logger.info(engine)
 
     # 3 声明映射见SQLAlchemy_Employee
 
     # 4 创建Schema
 # commented for query
-#    create_schema(engine)
+    SQLAlchemyOrmTutorialSupport.create_schema(engine, SQLAlchemy_Base)
+
+    SQLAlchemyOrmTutorialSupport.create_mysql_fulltext_index(SQLAlchemy_Base)
 
     # 5 创建映射类实例
     employee = new_transient_entity()
     logger.info(str(employee.id))  # None
 
-    session = create_session(engine)
+    # 6 创建Session
+    session = SQLAlchemyOrmTutorialSupport.create_session(engine)
 
     # 7 创建和更新对象
 # commented for query
-#     session.add(employee)  # 加入transient实体
-#     logger.info(employee.id)  # None, pending(not flushed)
-#     logger.info('session.new=%s', session.new)
-#
-#     employee_ = session.query(Employee).filter_by(first_name = 'Eric').first()  # 查询
-#     employee_.first_name = 'Eric0'
-#     logger.info('employee_ is employee: %s', employee_ is employee)
-#     logger.info('session.dirty=%s', session.dirty)
-#
-#     employees = [new_transient_entity(first_name = 'Eric2', last_name = 'Cartman2', age = 10, sex = 'M', income = 10000.0),
-#                  new_transient_entity(first_name = 'Eric3', last_name = 'Cartman3', age = 10, sex = 'M', income = 10000.0)]
-#     session.add_all(employees)  # 加入多个transient实体
-#
-#     logger.info('session.new=%s', session.new)
-#     logger.info('session.dirty=%s', session.dirty)
-#
-#     # 提交会话事务
-#     session.commit()
-#     # 查看ID
-#     logger.info(employee_.id)
-#     for e in employees:
-#         logger.info(e.id)
+    session.add(employee)  # 加入transient实体
+    logger.info(employee.id)  # None, pending(not flushed)
+    logger.info('session.new=%s', session.new)
+
+    employee_ = session.query(Employee).filter_by(first_name = 'Eric').first()  # 查询
+    employee_.first_name = 'Eric0'
+    logger.info('employee_ is employee: %s', employee_ is employee)
+    logger.info('session.dirty=%s', session.dirty)
+
+    employees = [new_transient_entity(first_name = 'Eric2', last_name = 'Cartman2', age = 10, sex = 'M', income = 10000.0),
+                 new_transient_entity(first_name = 'Eric3', last_name = 'Cartman3', age = 10, sex = 'M', income = 10000.0)]
+    session.add_all(employees)  # 加入多个transient实体
+
+    logger.info('session.new=%s', session.new)
+    logger.info('session.dirty=%s', session.dirty)
+
+    # 提交会话事务
+    session.commit()
+    # 查看ID
+    logger.info(employee_.id)
+    for e in employees:
+        logger.info(e.id)
 
     # 8 回滚
     employee_for_rollback = new_transient_entity('Eric4', 'Cartman4')

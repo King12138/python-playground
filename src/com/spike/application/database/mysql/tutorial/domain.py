@@ -5,8 +5,6 @@ Created on 2016-12-26 17:02:03
 领域实体定义
 @author: zhoujiagen
 '''
-from com.spike.env.log import SpikeConsoleLogger
-
 ##############################################################
 # ## MySQLdb使用的领域实体
 ##############################################################
@@ -36,20 +34,27 @@ class Employee(Entity):
 ##############################################################
 # ## SQLAlchemy使用的领域实体
 ##############################################################
-logger = SpikeConsoleLogger(logger_name = 'mysql--sqlalchemy-domain').native()
-
-from sqlalchemy.ext.declarative import declarative_base
-SQLAlchemy_Base = declarative_base()
+#=============================================================
+# 单个实体
+#=============================================================
 from sqlalchemy import Column, BigInteger, Integer, String, CHAR, Float
-
-def create_schema(engine):
-    """创建/检查Schema"""
-    logger.info('create schema by with engine[%s]' % engine)
-
-    SQLAlchemy_Base.metadata.create_all(engine)
-
+from com.spike.application.database.mysql.tutorial.sqlalchemy_orm_support import SQLAlchemy_Base
 
 class SQLAlchemy_Employee(SQLAlchemy_Base):
+    """
+CREATE TABLE `EMPLOYEE` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `FIRST_NAME` varchar(20) DEFAULT NULL,
+  `LAST_NAME` varchar(20) DEFAULT NULL,
+  `AGE` int(11) DEFAULT NULL,
+  `SEX` char(1) DEFAULT NULL,
+  `INCOME` float DEFAULT NULL,
+  PRIMARY KEY (`ID`),
+  FULLTEXT KEY `first_name_fulltext` (`FIRST_NAME`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+    FULLTEXT search REF: http://stackoverflow.com/questions/14971619/proper-use-of-mysql-full-text-search-with-sqlalchemy
+    """
     __tablename__ = 'EMPLOYEE'
 
     # name为schema中的名称
@@ -60,9 +65,34 @@ class SQLAlchemy_Employee(SQLAlchemy_Base):
     sex = Column(CHAR(1), name = 'SEX')
     income = Column(Float, name = 'INCOME')
 
-    def create_schema(self, engine):
-        logger.info('create schema by [%s] with engine[%s]' % ('SQLAlchemy_Employee', engine))
-        SQLAlchemy_Base.metadata.create_all(engine)
+    def __repr__(self):
+        if self.id is None:
+            return 'Employee[first_name=%s, last_name=%s, age=%d, sex=%c, income=%f]' % (
+                self.first_name, self.last_name, self.age, self.sex, self.income)
+        else:
+            return 'Employee[id=%d, first_name=%s, last_name=%s, age=%d, sex=%c, income=%f]' % (self.id,
+                self.first_name, self.last_name, self.age, self.sex, self.income)
+
+#=============================================================
+# 关联的实体
+#=============================================================
+from sqlalchemy import ForeignKey
+from com.spike.application.database.mysql.tutorial.sqlalchemy_orm_support import SQLAlchemy_Relationship_Base
+from sqlalchemy.orm import relationship  # 关联
+
+class SQLAlchemy_Relation_Employee(SQLAlchemy_Relationship_Base):
+    __tablename__ = 'EMPLOYEES'
+
+    # name为schema中的名称
+    id = Column(BigInteger, primary_key = True, autoincrement = True, name = 'ID')
+    first_name = Column(String(20), name = 'FIRST_NAME')
+    last_name = Column(String(20), name = 'LAST_NAME')
+    age = Column(Integer, name = 'AGE')
+    sex = Column(CHAR(1), name = 'SEX')
+    income = Column(Float, name = 'INCOME')
+
+    dept_id = Column(BigInteger, ForeignKey('DEPARTMENTS.ID'), name = 'DEPT_ID')
+    department = relationship('SQLAlchemy_Relation_Department', back_populates = 'employees')  # 定义关联
 
     def __repr__(self):
         if self.id is None:
@@ -71,3 +101,15 @@ class SQLAlchemy_Employee(SQLAlchemy_Base):
         else:
             return 'Employee[id=%d, first_name=%s, last_name=%s, age=%d, sex=%c, income=%f]' % (self.id,
                 self.first_name, self.last_name, self.age, self.sex, self.income)
+
+class SQLAlchemy_Relation_Department(SQLAlchemy_Relationship_Base):
+    __tablename__ = 'DEPARTMENTS'
+
+    id = Column(BigInteger, primary_key = True, autoincrement = True, name = 'ID')
+    name = Column(String(50), name = "NAME")
+
+# 定义关联
+SQLAlchemy_Relation_Department.employees = relationship(
+    'SQLAlchemy_Relation_Employee',
+    order_by = SQLAlchemy_Employee.id,
+    back_populates = 'department')
