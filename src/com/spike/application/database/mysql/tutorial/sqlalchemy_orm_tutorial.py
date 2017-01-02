@@ -314,5 +314,5 @@ if __name__ == '__main__':
     _query_using_texual_sql(session)
     _query_counting(session)
 
-
+    session.close_all()
 
