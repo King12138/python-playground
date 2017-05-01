@@ -1,7 +1,7 @@
 # 0 Pydoc
 
 PyDoc的构成:
- 
+
 + 描述部分
 + 模块(Modules)
 + 类(Classes)
@@ -11,6 +11,8 @@ PyDoc的构成:
 # 1 数据结构
 
 见`com.spike.datastructure`.
+
+数据结构和算法更详尽的示例可以参考: [Minimal examples of data structures and algorithms in Python](https://github.com/keon/algorithms).
 
 # 2 命令式编程 - 控制结构, 异常处理, BIF等
 
@@ -58,7 +60,7 @@ Python内建的模块: `logging`, `logging.config`, `logging.handlers`, REF [The
 文档见`dev-resources/rabbitmq-notes.md`, `dev-resources/rabbitmq-python-notes.md`;
 RabbitMQ官方提供的pika示例见`com.spike.application.rabbitmq.tutorial`
 
-+ [SQLAlchemy](http://www.sqlalchemy.org/): The Python SQL Toolkit and Object Relational Mapper - 
++ [SQLAlchemy](http://www.sqlalchemy.org/): The Python SQL Toolkit and Object Relational Mapper -
 
 文档见`dev-resources/SQLAlchemy-notes.md`;
 MySQL数据库操作(MySQLdb和SQLAlchemy示例见`com.spike.application.database.mysql.tutorial`)
