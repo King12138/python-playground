@@ -6,4 +6,5 @@
 .settings/org.eclipse.core.resources.prefs
 
 *.pyc
-*.html
+#*.html
+applications/django/mysite/polls/migrations/*
